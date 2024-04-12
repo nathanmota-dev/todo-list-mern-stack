@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { getConnectedClient } = require("../database/db");
-const { ObjectId } = require("mongodb");
+//const { ObjectId } = require("mongodb");
 
 const getCollection = async () => {
     const client = await getConnectedClient();
-    const collection = client.db("todo-db").collection("todos"); // db name: todo, collection name: todos
+    const collection = client.db("todo-db").collection("todos");
     return collection;
 }
 
@@ -17,10 +17,10 @@ router.get("/todos", async (req, res) => {
 
 router.post("/todos", async (req, res) => {
     const collection = await getCollection();
-    const todo = req.body;
+    let todo = req.body.todo;
 
     if (!todo) {
-        return res.status(400).json({ message: "Bad Request" });
+        return res.status(400).json({ message: "Bad Request. Missing 'todo' data." });
     }
 
     todo = (typeof todo === "string") ? todo : JSON.stringify(todo);

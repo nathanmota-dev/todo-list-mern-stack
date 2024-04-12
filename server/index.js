@@ -17,8 +17,8 @@ app.get("/", (req, res) => {
 
 async function startServer() {
     try {
-        //await connectToDB();  
-        app.listen(3003, () => {
+        await connectToDB();  
+        app.listen(PORT, () => {
             console.log(`Server is running on port http://localhost:${PORT}`);
         });
     } catch (error) {

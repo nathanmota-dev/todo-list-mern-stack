@@ -13,7 +13,7 @@ const options = {
 
 let client;
 
-const connectToMongoDB = async () => {
+const connectToDB = async () => {
     if (!client) {
         try {
             client = await MongoClient.connect(uri, options);
@@ -32,4 +32,4 @@ const getConnectedClient = () => {
     return client;
 };
 
-module.exports = { connectToMongoDB, getConnectedClient };
+module.exports = { connectToDB, getConnectedClient };
