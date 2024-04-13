@@ -8,6 +8,9 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 3001;
 
+const cors = require('cors');
+app.use(cors());
+
 const routes = require("./routes/todoRoutes");
 app.use("/api", routes);
 
@@ -17,7 +20,7 @@ app.get("/", (req, res) => {
 
 async function startServer() {
     try {
-        await connectToDB();  
+        await connectToDB();
         app.listen(PORT, () => {
             console.log(`Server is running on port http://localhost:${PORT}`);
         });
