@@ -1,6 +1,9 @@
-POST http://localhost:3001/api/todos
+POST http://localhost:3001/api/register
 Content-Type: application/json
 
 {
-    "todo": "Testasdadadadsafasfae"    
+    "name": "test",
+    "email": "asda@dasd.com",
+    "password": "test",
+    "confirmPassword": "test"
 }
