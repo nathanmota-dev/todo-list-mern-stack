@@ -4,7 +4,7 @@ export default function Todo(props) {
     const { todo, setTodos } = props;
 
     const updateTodo = async (todoId, todoStatus) => {
-        const res = await fetch(`http://localhost:3001/api/todos/${todoId}`, {
+        const res = await fetch(`https://todo-list-mern-stack-u8qo.onrender.com/api/todos/${todoId}`, {
             method: "PUT",
             body: JSON.stringify({ status: todoStatus }),
             headers: {
@@ -26,7 +26,7 @@ export default function Todo(props) {
     };
 
     const deleteTodo = async (todoId) => {
-        const res = await fetch(`http://localhost:3001/api/todos/${todoId}`, {
+        const res = await fetch(`https://todo-list-mern-stack-u8qo.onrender.com/api/todos/${todoId}`, {
             method: "DELETE"
         });
         const json = await res.json();
