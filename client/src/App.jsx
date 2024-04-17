@@ -8,7 +8,7 @@ export default function App() {
 
   useEffect(() => {
     async function getTodos() {
-      const res = await fetch("http://localhost:3001/api/todos");
+      const res = await fetch("https://todo-list-mern-stack-u8qo.onrender.com");
       const todos = await res.json();
 
       setTodos(todos);
@@ -19,7 +19,7 @@ export default function App() {
   const createNewTodo = async (e) => {
     e.preventDefault();
     if (content.length > 3) {
-      const res = await fetch("http://localhost:3001/api/todos", {
+      const res = await fetch("https://todo-list-mern-stack-u8qo.onrender.com", {
         method: "POST",
         body: JSON.stringify({ todo: content }),
         headers: {
