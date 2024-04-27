@@ -1,9 +1,7 @@
-POST http://localhost:3001/api/register
+POST http://localhost:3001/api/login
 Content-Type: application/json
 
-{
-    "name": "test",
+{    
     "email": "asda@dasd.com",
-    "password": "test",
-    "confirmPassword": "test"
+    "password": "test"    
 }
