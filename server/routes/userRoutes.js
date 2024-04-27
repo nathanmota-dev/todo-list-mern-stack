@@ -1,8 +1,9 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/userModels');
 
-router.get('/register', async (req, res) => {
+router.post('/register', async (req, res) => {
 
     const { name, email, password, confirmPassword } = req.body;
 
@@ -19,24 +20,23 @@ router.get('/register', async (req, res) => {
     if (userExists) {
         return res.status(402).json({ msg: "Usuário já cadastrado!" });
     }
-
-    const salt = bycript.genSalt(12);
-    const passwordHash = await bycript.hash(password, salt);
-
-    const user = new User({
-        name,
-        email,
-        password: passwordHash,
-    });
-
+    
     try {
-        await user.save();
-        //const newUser = await user.save();
-        //res.status(201).json(newUser, { msg: "Usuário cadastrado com sucesso!" });
+        const salt = await bcrypt.genSalt(12);
+        const passwordHash = await bcrypt.hash(password, salt);
+
+        const user = new User({
+            name,
+            email,
+            password: passwordHash,
+        });
+
+        const newUser = await user.save();
+        res.status(201).json({ user: newUser, msg: "Usuário cadastrado com sucesso!" });
     } catch (error) {
-        console.log(error);
-        res.status(400).json({ msg: error, msg: "Erro ao cadastrar usuário!" });
-    }
+    console.log(error);
+    res.status(400).json({ msg: error, msg: "Erro ao cadastrar usuário!" });
+}
 
 });
 
