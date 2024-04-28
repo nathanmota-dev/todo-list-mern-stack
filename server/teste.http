@@ -1,6 +1,7 @@
-POST http://localhost:3001/api/todos
+POST http://localhost:3001/api/login
 Content-Type: application/json
 
-{
-    "todo": "Testasdadadadsafasfae"    
+{    
+    "email": "asda@dasd.com",
+    "password": "test"    
 }

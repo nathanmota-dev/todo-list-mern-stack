@@ -1,28 +1,32 @@
 const express = require("express");
+const cors = require('cors');
+const mongoose = require("mongoose");
+
 const app = express();
 
 const { connectToDB } = require("./database/db");
 
-app.use(express.json());
 require("dotenv").config();
 
-const PORT = process.env.PORT || 3001;
-
-const cors = require('cors');
+app.use(express.json());
 app.use(cors());
 
-const routes = require("./routes/todoRoutes");
-app.use("/api", routes);
+const todoRoutes = require("./routes/todoRoutes");
+const userRoutes = require("./routes/userRoutes");
 
-app.get("/", (req, res) => {
-    res.send("Hello World");
-});
+const port = process.env.PORT || 3001;
+
+app.use("/api", todoRoutes);
+app.use("/api", userRoutes);
 
 async function startServer() {
     try {
         await connectToDB();
-        app.listen(PORT, () => {
-            console.log(`Server is running on port http://localhost:${PORT}`);
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log('Connected to MongoDB');
+
+        app.listen(port, () => {
+            console.log(`Server is running on port http://localhost:${port}`);
         });
     } catch (error) {
         console.error("Failed to connect to the database:", error);
