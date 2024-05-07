@@ -17,8 +17,8 @@ const authenticate = require("./middleware/authenticate");
 
 const port = process.env.PORT || 3001;
 
-app.use("/api", authenticate, todoRoutes);
-app.use("/api", userRoutes);
+app.use("/api/auth", authenticate, todoRoutes);
+app.use("/api/users", userRoutes);
 
 async function startServer() {
     try {
