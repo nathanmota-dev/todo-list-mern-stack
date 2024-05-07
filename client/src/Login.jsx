@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import styled from 'styled-components'
+import { useState } from 'react';
+import styled from 'styled-components';
 
 const LoginDiv = styled.div`
     display: flex;
@@ -39,15 +39,26 @@ const Text1 = styled.p`
     padding: 10px;
 `;
 
-export default function Login({ setIsAuthenticated }) {
+const MessageContainer = styled.div`
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    background-color: ${props => props.error ? 'red' : 'green'};
+`;
 
+export default function Login({ setIsAuthenticated }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/api/login', {
+            const response = await fetch('https://todo-list-mern-stack-u8qo.onrender.com/api/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -55,18 +66,18 @@ export default function Login({ setIsAuthenticated }) {
                 body: JSON.stringify({ email, password })
             });
 
-            const data = response.json();
+            const data = await response.json();
 
             if (response.status === 200) {
                 localStorage.setItem('token', data.token);
                 setIsAuthenticated(true);
             } else {
-                alert(data.msg);
+                setError(data.msg);
             }
 
         } catch (error) {
             console.error('Erro ao fazer Login:', error);
-            alert('Falha ao fazer login');
+            setError('Falha ao fazer login');
         }
     }
 
@@ -77,6 +88,8 @@ export default function Login({ setIsAuthenticated }) {
                 <InputField type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" required />
                 <SubmitButton type="submit">Entrar</SubmitButton><br />
                 <Text1>Ainda não tem uma conta?<a href="/register"> Criar conta</a></Text1>
+                {error && <MessageContainer error>{error}</MessageContainer>}
+                {message && <MessageContainer>{message}</MessageContainer>}
             </LoginForm>
         </LoginDiv>
     )
