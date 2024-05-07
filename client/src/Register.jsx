@@ -39,6 +39,16 @@ const Text1 = styled.p`
     padding: 10px;
 `;
 
+const MessageContainer = styled.div`
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    background-color: ${props => props.error ? 'red' : 'green'};
+`;
+
 export default function Register() {
 
     const [name, setName] = useState('');
@@ -46,14 +56,17 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+
     const handleRegister = async (e) => {
         e.preventDefault();
         if (password != confirmPassword) {
-            alert("As senhas não conferem!");
+            setMessage(data.msg);
             return;
         }
         try {
-            const response = await fetch('http://localhost:3001/api/register', {
+            const response = await fetch('https://todo-list-mern-stack-u8qo.onrender.com/api/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -62,14 +75,15 @@ export default function Register() {
             });
             const data = await response.json();
             if (response.status === 201) {
-                alert(data.msg);
+                history.push('/login');
+                setMessage(data.msg);
             } else {
-                alert(data.msg);
+                setError(data.msg);
             }
 
         } catch (error) {
-            console.error('Falha ao registrar:', error);
-            alert('Falha ao registrar');
+            console.error('Erro ao fazer Login:', error);
+            setMessage(data.msg);;
         }
     }
 
@@ -82,6 +96,8 @@ export default function Register() {
                 <InputField type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirme a Senha" required />
                 <SubmitButton type="submit">Registrar</SubmitButton>
                 <Text1>Já tem uma conta?<a href="/"> Fazer Login</a></Text1>
+                {message && <MessageContainer>{message}</MessageContainer>}
+                {error && <MessageContainer error>{error}</MessageContainer>}
             </LoginForm>
         </LoginDiv>
     )
