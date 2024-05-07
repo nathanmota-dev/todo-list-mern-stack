@@ -13,10 +13,11 @@ app.use(cors());
 
 const todoRoutes = require("./routes/todoRoutes");
 const userRoutes = require("./routes/userRoutes");
+const authenticate = require("./middleware/authenticate");
 
 const port = process.env.PORT || 3001;
 
-app.use("/api", todoRoutes);
+app.use("/api", authenticate, todoRoutes);
 app.use("/api", userRoutes);
 
 async function startServer() {
