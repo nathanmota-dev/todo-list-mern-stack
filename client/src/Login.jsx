@@ -76,8 +76,8 @@ export default function Login({ setIsAuthenticated }) {
             }
 
         } catch (error) {
-            console.error('Erro ao fazer Login:', error);
-            setError('Falha ao fazer login');
+            setMessage('Erro ao fazer Login:', error);
+            setMessage(data.msg);
         }
     }
 

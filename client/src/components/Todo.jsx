@@ -2,7 +2,7 @@ export default function Todo(props) {
     const { todo, setTodos } = props;
 
     const updateTodo = async (todoId, todoStatus) => {
-        const res = await fetch(`https://todo-list-mern-stack-u8qo.onrender.com/api/auth/todo/${todoId}`, {
+        const res = await fetch(`https://todo-list-mern-stack-u8qo.onrender.com/api/auth/todos/${todoId}`, {
             method: "PUT",
             body: JSON.stringify({ status: todoStatus }),
             headers: {

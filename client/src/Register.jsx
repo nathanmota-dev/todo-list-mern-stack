@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 const LoginDiv = styled.div`
@@ -59,6 +60,8 @@ export default function Register() {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
+    const navigate = useNavigate();
+
     const handleRegister = async (e) => {
         e.preventDefault();
         if (password != confirmPassword) {
@@ -75,15 +78,15 @@ export default function Register() {
             });
             const data = await response.json();
             if (response.status === 201) {
-                history.push('/login');
+                navigate('/');
                 setMessage(data.msg);
             } else {
                 setError(data.msg);
             }
 
         } catch (error) {
-            console.error('Erro ao fazer Login:', error);
-            setMessage(data.msg);;
+            setMessage('Erro ao fazer Login:', error);
+            setMessage(data.msg);
         }
     }
 
