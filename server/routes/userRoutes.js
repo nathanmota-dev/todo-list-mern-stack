@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
         if (!user) {
             return res.status(404).json({ msg: "Usuário não encontrado!" });
         }
-        
+
         const passMatch = await bcrypt.compare(password, user.password)
         if (!passMatch) {
             return res.status(401).json({ msg: "Senha não corresponde!" });
@@ -81,7 +81,7 @@ router.post('/login', async (req, res) => {
         );
 
     } catch (error) {
-        return res.status(500).json({ msg: "Erro ao processar a solicitação. Tente mais tarde! " });
+        return res.status(500).json({ msg: "Erro ao processar a solicitação. Tente mais tarde! Erro: ", error: error.message });
     }
 
 });
