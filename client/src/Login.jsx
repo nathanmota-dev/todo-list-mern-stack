@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LoginDiv = styled.div`
@@ -87,7 +88,7 @@ export default function Login({ setIsAuthenticated }) {
                 <InputField type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" required />
                 <InputField type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" required />
                 <SubmitButton type="submit">Entrar</SubmitButton><br />
-                <Text1>Ainda não tem uma conta?<a href="/register"> Criar conta</a></Text1>
+                <Text1>Ainda não tem uma conta?<Link to="/register"> Criar conta</Link></Text1>
                 {error && <MessageContainer error>{error}</MessageContainer>}
                 {message && <MessageContainer>{message}</MessageContainer>}
             </LoginForm>

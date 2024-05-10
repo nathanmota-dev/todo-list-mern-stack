@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 const LoginDiv = styled.div`
@@ -98,7 +98,7 @@ export default function Register() {
                 <InputField type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" required />
                 <InputField type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirme a Senha" required />
                 <SubmitButton type="submit">Registrar</SubmitButton>
-                <Text1>Já tem uma conta?<a href="/"> Fazer Login</a></Text1>
+                <Text1>Já tem uma conta?<Link to="/"> Entrar</Link></Text1>
                 {message && <MessageContainer>{message}</MessageContainer>}
                 {error && <MessageContainer error>{error}</MessageContainer>}
             </LoginForm>
